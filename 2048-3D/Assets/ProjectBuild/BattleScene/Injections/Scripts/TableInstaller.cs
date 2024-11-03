@@ -4,8 +4,18 @@ using Zenject;
 public class TableInstaller : MonoInstaller
 {
     [SerializeField] private TableBase table;
+    // 
+
 
     public override void InstallBindings()
+    {
+        // тут можна добавляти кондішіни яка іммено буде біндитись дошка
+
+        BindTable(table);
+
+    }
+
+    private void BindTable(TableBase table)
     {
         Container
             .Bind<ITable>()
@@ -13,13 +23,5 @@ public class TableInstaller : MonoInstaller
             .AsSingle()
             .NonLazy()
             ;
-
-
-        Container
-            .Bind<ThrowingPlatformBase>()
-            .FromInstance(table.Platform)
-            .AsSingle()
-            ;
-
     }
 }

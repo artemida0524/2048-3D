@@ -20,7 +20,7 @@ public class ObjectPool<T> where T : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            CreateItem();
+            CreateItem(false);
         }
     }
 
@@ -29,33 +29,48 @@ public class ObjectPool<T> where T : MonoBehaviour
     {
         foreach (var item in list)
         {
-            if (!item.gameObject.activeSelf)
+            try
             {
-                item.gameObject.SetActive(active);
-                return item;
+                if (!item.gameObject.activeSelf)
+                {
+                    item.gameObject.SetActive(active);
+                    return item;
+                }
+            }
+            catch (System.Exception)
+            {
+                continue;
             }
         }
 
-        return CreateItem();
+        return CreateItem(active);
 
     }
 
-    private T CreateItem()
+    private T CreateItem(bool active)
     {
-        Debug.Log("fwefwef");
 
         T item = Object.Instantiate(instance, container);
 
-        item.gameObject.SetActive(false);
+        item.gameObject.SetActive(active);
 
         Push(item);
 
         return item;
     }
 
-
     private void Push(T item)
     {
         list.Add(item);
+    }
+
+    public void Remove(T itemRemove)
+    {
+        itemRemove.gameObject.SetActive(false);
+    }
+
+    public List<T> GetAll()
+    {
+        return list;
     }
 }

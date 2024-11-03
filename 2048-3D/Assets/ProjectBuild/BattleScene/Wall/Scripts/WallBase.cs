@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-[RequireComponent(typeof(BoxCollider), typeof(MeshRenderer))]
+[RequireComponent(typeof(BoxCollider), typeof(MeshRenderer), typeof(MeshFilter))]
 public abstract class WallBase : MonoBehaviour, IWall
 {
     [field: NonSerialized] public BoxCollider BoxCollider { get; protected set; }
