@@ -28,6 +28,10 @@ public abstract class ThrowableItemBase : MonoBehaviour
                 {
                     if (this.Rigidbody.velocity.magnitude > item.Rigidbody.velocity.magnitude)
                     {
+
+                        //var eventDelegate = (MulticastDelegate)OnDetectSameItem;
+                        //Debug.Log(eventDelegate?.GetInvocationList().Length);
+
                         dataItemInteraction.LevelUp();
 
                         itemView.View(dataItem.number);
@@ -44,6 +48,8 @@ public abstract class ThrowableItemBase : MonoBehaviour
     private void OnDisable()
     {
         OnDetectSameItem = null;
+
+
     }
 
     private void DisableItem(ThrowableItemBase item)

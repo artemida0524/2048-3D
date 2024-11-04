@@ -55,9 +55,10 @@ public abstract class ThrowingPlatformBase : MonoBehaviour, IThrowingPlatform
 
     private void Start()
     {
-        SetNewItem();
 
         OnThrow += ThrowCurrentItem;
+
+        StartCoroutine(CreateItemWithDelay());
 
     }
 
@@ -116,12 +117,12 @@ public abstract class ThrowingPlatformBase : MonoBehaviour, IThrowingPlatform
             itemHandler.ResetItemDetachAndResetItem(CurrentItem, itemTarget);
             CurrentItem = null;
 
-            StartCoroutine(ReloadItemAfterThrow());
+            StartCoroutine(CreateItemWithDelay());
 
         }
     }
 
-    protected IEnumerator ReloadItemAfterThrow()
+    protected IEnumerator CreateItemWithDelay()
     {
         yield return new WaitForSeconds(respawnTimeItem);
 

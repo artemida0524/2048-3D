@@ -26,6 +26,7 @@ public class PointHandle : MonoBehaviour
 
     private void OnDetectSameItemHandler(int number)
     {
+
         data.number += number / 2;
 
         view.View(data.number);

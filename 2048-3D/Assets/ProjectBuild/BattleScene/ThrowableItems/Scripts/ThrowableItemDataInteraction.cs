@@ -14,7 +14,7 @@ public class ThrowableItemDataInteraction
     {
         data.number *= 2;
 
-        Debug.Log("Level Up");
+        
 
     }
 }
