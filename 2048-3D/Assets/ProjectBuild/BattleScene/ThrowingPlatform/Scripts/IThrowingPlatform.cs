@@ -9,7 +9,7 @@ public interface IThrowingPlatform
 
     public event Action OnTouch;
     public event Action OnThrow;
-    public event Action<int> OnActivatedDeactivated;
+    public event Action<int> OnDetectSameItem;
 
 
     void BeginDrag();

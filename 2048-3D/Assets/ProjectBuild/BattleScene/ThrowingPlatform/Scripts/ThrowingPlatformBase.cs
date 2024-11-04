@@ -17,18 +17,17 @@ public abstract class ThrowingPlatformBase : MonoBehaviour, IThrowingPlatform
     [SerializeField] protected int probably2;
     [SerializeField] protected int probably4;
 
-
     [Header("Object Pool Settings")]
     [SerializeField] protected ThrowableItemBase itemInstance;
     [SerializeField] protected Transform container;
     [SerializeField] protected int beginCountItems = 10;
+    public ObjectPool<ThrowableItemBase> ObjectPool { get; protected set; }
     #endregion
 
     #region Protected Fields
     protected Camera cameraMain;
-    //protected ObjectPool<ThrowableItemBase> ObjectPool { get; private set; }
 
-    public ObjectPool<ThrowableItemBase> ObjectPool { get; protected set; }
+    protected ItemHandlerInPlatform itemHandler;
 
     protected IInput InputTouch { get; set; }
     protected IInputCurrentSelected CurrentItemSelector { get; set; }
@@ -40,13 +39,12 @@ public abstract class ThrowingPlatformBase : MonoBehaviour, IThrowingPlatform
     public ThrowableItemBase CurrentItem { get; protected set; }
     public bool CanDrag { get; set; } = true;
 
-
     #endregion
 
     #region Events
     public event Action OnTouch;
     public event Action OnThrow;
-    public event Action<int> OnActivatedDeactivated;
+    public event Action<int> OnDetectSameItem;
 
     #endregion
 
@@ -71,7 +69,7 @@ public abstract class ThrowingPlatformBase : MonoBehaviour, IThrowingPlatform
         }
     }
 
-    private void OnDrawGizmos/*Selected*/()
+    private void OnDrawGizmos()
     {
         DrawIntervalWidthZone();
     }
@@ -94,6 +92,7 @@ public abstract class ThrowingPlatformBase : MonoBehaviour, IThrowingPlatform
         InputTouch = new InputTouchDefault(cameraMain);
         CurrentItemSelector = new CurrentItemSelected(cameraMain);
         InputThrowigPlatform = new InputThrowigPlatformDefault(this);
+        itemHandler = new ItemHandlerInPlatform(this);
 
     }
 
@@ -101,18 +100,9 @@ public abstract class ThrowingPlatformBase : MonoBehaviour, IThrowingPlatform
     {
         if (CurrentItem == null)
         {
-            int cubeNumber = ProbabilityGenerator.GenerateWithProbability(probably4, 4, 2);
+            ThrowableItemBase item = itemHandler.CreateNewItem(probably4, impulseCollision, OnDetectSameItem);
 
-            ThrowableItemBase item = ObjectPool.Get(true);
-
-            item.InitializationDataItem(new ThrowableItemData()
-            {
-                impulse = impulseCollision,
-                number = cubeNumber
-            }, OnActivatedDeactivated);
-                
-            AttachItemToTarget(item);
-
+            CurrentItem = itemHandler.AttachItemToTarget(item, itemTarget);
         }
     }
 
@@ -120,11 +110,14 @@ public abstract class ThrowingPlatformBase : MonoBehaviour, IThrowingPlatform
     {
         if (CurrentItem != null)
         {
-            CurrentItem.Throw(new Vector3(0, speedItem, 0));
 
-            ResetItemDetachAndResetItem();
+            itemHandler.ThrowItem(CurrentItem, new Vector3(0, speedItem, 0));
+
+            itemHandler.ResetItemDetachAndResetItem(CurrentItem, itemTarget);
+            CurrentItem = null;
 
             StartCoroutine(ReloadItemAfterThrow());
+
         }
     }
 
@@ -134,27 +127,6 @@ public abstract class ThrowingPlatformBase : MonoBehaviour, IThrowingPlatform
 
         SetNewItem();
     }
-
-
-    protected void AttachItemToTarget(ThrowableItemBase item)
-    {
-        item.transform.parent = itemTarget.transform;
-
-        item.transform.localPosition = Vector3.zero;
-
-
-        CurrentItem = item;
-    }
-
-    protected void ResetItemDetachAndResetItem()
-    {
-        CurrentItem.transform.parent = null;
-
-        itemTarget.localPosition = Vector3.zero;
-
-        CurrentItem = null;
-    }
-
 
     private Vector3 GetTouchPosition()
     {
@@ -190,11 +162,11 @@ public abstract class ThrowingPlatformBase : MonoBehaviour, IThrowingPlatform
 
         if (CanDragSelected)
         {
-            Vector3 pos = GetTouchPosition();
+            Vector3 position = GetTouchPosition();
 
-            pos = ClampPositionWithinZone(pos);
+            position = ClampPositionWithinZone(position);
 
-            ApplyPositionToTarget(pos);
+            ApplyPositionToTarget(position);
         }
 
     }

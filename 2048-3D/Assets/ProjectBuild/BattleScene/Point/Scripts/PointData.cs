@@ -1,4 +1,5 @@
-﻿public class PointData
+﻿
+public class PointData
 {
     public int number;
 }

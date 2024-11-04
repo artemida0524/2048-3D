@@ -11,7 +11,7 @@ public abstract class ThrowableItemBase : MonoBehaviour
     protected ThrowableItemDataInteraction dataItemInteraction;
 
     public event Action<int> OnDetectSameItem;
-    public event Action<int> OnActivatedDeactivated;
+    
 
     private void Awake()
     {
@@ -30,9 +30,9 @@ public abstract class ThrowableItemBase : MonoBehaviour
                     {
                         dataItemInteraction.LevelUp();
 
+                        itemView.View(dataItem.number);
+
                         OnDetectSameItem?.Invoke(dataItem.number);
-                        OnActivatedDeactivated?.Invoke(dataItem.number);
-                        
 
                         DisableItem(item);
                     }
@@ -43,7 +43,7 @@ public abstract class ThrowableItemBase : MonoBehaviour
 
     private void OnDisable()
     {
-        OnActivatedDeactivated = null;
+        OnDetectSameItem = null;
     }
 
     private void DisableItem(ThrowableItemBase item)
@@ -62,16 +62,15 @@ public abstract class ThrowableItemBase : MonoBehaviour
     protected virtual void Initialization()
     {
         Rigidbody = GetComponent<Rigidbody>();
-        OnDetectSameItem += itemView.View;
 
         EnabledComponents(false);
     }
 
-    public void InitializationDataItem(ThrowableItemData data, Action<int> OnActivatedDeactivated)
+    public void InitializationDataItem(ThrowableItemData data, Action<int> OnDetectSameItem)
     {
         EnabledComponents(false);
 
-        this.OnActivatedDeactivated = OnActivatedDeactivated;
+        this.OnDetectSameItem = OnDetectSameItem;
         dataItem = data;
         dataItemInteraction = new ThrowableItemDataInteraction(dataItem);
 

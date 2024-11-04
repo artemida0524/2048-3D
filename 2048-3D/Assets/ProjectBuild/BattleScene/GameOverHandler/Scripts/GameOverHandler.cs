@@ -24,6 +24,8 @@ public class GameOverHandler : MonoBehaviour
 
     private void Start()
     {
+        pointHandler.ViewCondition(conditionCount);
+
         platform.OnTouch += OnTouchPlatform;
     }
 
@@ -63,6 +65,7 @@ public class GameOverHandler : MonoBehaviour
         timer.EnableTime(false);
         platform.CanDrag = false;
         isSetScreen = false;
+        pointHandler.DisableViewCondition();
     }
 
     public void EnableLoseScreen(bool enable)
@@ -74,6 +77,4 @@ public class GameOverHandler : MonoBehaviour
     {
         canvasResultScreen.EnableWinScreen(enable);
     }
-
-
 }

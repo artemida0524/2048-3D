@@ -20,7 +20,7 @@ public class PointHandle : MonoBehaviour
     {
         data = new PointData();
 
-        platform.OnActivatedDeactivated += OnDetectSameItemHandler;
+        platform.OnDetectSameItem += OnDetectSameItemHandler;
 
     }
 
@@ -37,4 +37,13 @@ public class PointHandle : MonoBehaviour
         return data.number;
     }
 
+    public void ViewCondition(int count)
+    {
+        view.ViewCondition(count);
+    }
+
+    public void DisableViewCondition()
+    {
+        view.DisableViewCondition();
+    }
 }

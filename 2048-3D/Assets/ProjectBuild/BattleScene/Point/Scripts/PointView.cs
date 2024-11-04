@@ -6,6 +6,8 @@ public class PointView : MonoBehaviour
     private const string ADD_PATH = "Add";
 
     [SerializeField] private TextMeshProUGUI count;
+    [SerializeField] private TextMeshProUGUI conditionText;
+
     [SerializeField] private Animator animator;
 
     public void View(int number)
@@ -23,6 +25,16 @@ public class PointView : MonoBehaviour
     public void SetColorDefault()
     {
         count.color = Color.white;
+    }
+
+    public void ViewCondition(int count)
+    {
+        conditionText.text = $"Goal: {count}";
+    }
+
+    public void DisableViewCondition()
+    {
+        conditionText.text = string.Empty;
     }
 
 }
