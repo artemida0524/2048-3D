@@ -13,6 +13,7 @@ public abstract class ThrowingPlatformBase : MonoBehaviour, IThrowingPlatform
     [SerializeField] private float impulseCollision = 10f;
     [SerializeField] private float respawnTimeItem;
     [SerializeField] private float speedItem = 2500f;
+    [SerializeField] private Vector3 direction;
 
     [Header("Item Probabilities")]
 
@@ -113,7 +114,7 @@ public abstract class ThrowingPlatformBase : MonoBehaviour, IThrowingPlatform
         if (CurrentItem != null)
         {
 
-            itemHandler.ThrowItem(CurrentItem, new Vector3(0, 0, speedItem));
+            itemHandler.ThrowItem(CurrentItem, /*new Vector3(0, 0, speedItem)*/direction * speedItem);
 
             itemHandler.ResetItemDetachAndResetItem(CurrentItem, itemTarget);
             CurrentItem = null;

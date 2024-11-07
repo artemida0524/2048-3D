@@ -725,9 +725,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 8051960927623699435}
     m_Modifications:
     - target: {fileID: 1054671569471793249, guid: 0923c6a8a627f7849812a8b3b65fecb5, type: 3}
+      propertyPath: speedItem
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054671569471793249, guid: 0923c6a8a627f7849812a8b3b65fecb5, type: 3}
       propertyPath: widthZone
       value: 7.82
       objectReference: {fileID: 0}
+    - target: {fileID: 1054671569471793249, guid: 0923c6a8a627f7849812a8b3b65fecb5, type: 3}
+      propertyPath: direction.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054671569471793249, guid: 0923c6a8a627f7849812a8b3b65fecb5, type: 3}
+      propertyPath: itemInstance
+      value: 
+      objectReference: {fileID: 2437360871002623721, guid: de5e5b1c3a0f01d4d83e87493c0dec3a, type: 3}
     - target: {fileID: 3446830311237302097, guid: 0923c6a8a627f7849812a8b3b65fecb5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

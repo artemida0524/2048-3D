@@ -65,10 +65,10 @@ public abstract class ThrowableItemBase : MonoBehaviour
         item.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-    public void Throw(Vector3 velocity)
+    public void Throw(Vector3 direction)
     {
         EnabledComponents(true);
-        Rigidbody.AddForce(velocity);
+        Rigidbody.AddForce(direction);
     }
 
     protected virtual void Initialization()

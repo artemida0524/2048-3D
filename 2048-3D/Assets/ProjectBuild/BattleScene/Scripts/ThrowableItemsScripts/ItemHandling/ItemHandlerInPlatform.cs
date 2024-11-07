@@ -36,9 +36,9 @@ public class ItemHandlerInPlatform
         return item;
     }
 
-    public void ThrowItem(ThrowableItemBase item, Vector3 speedItem)
+    public void ThrowItem(ThrowableItemBase item, Vector3 direction)
     {
-        item.Throw(speedItem);
+        item.Throw(direction);
     }
 
 

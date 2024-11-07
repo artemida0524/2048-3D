@@ -712,6 +712,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2496051941012269943}
     m_Modifications:
     - target: {fileID: 1054671569471793249, guid: 0923c6a8a627f7849812a8b3b65fecb5, type: 3}
+      propertyPath: direction.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1054671569471793249, guid: 0923c6a8a627f7849812a8b3b65fecb5, type: 3}
       propertyPath: impulseCollision
       value: 8
       objectReference: {fileID: 0}
