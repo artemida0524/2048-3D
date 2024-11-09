@@ -92,7 +92,8 @@ public abstract class ThrowingPlatformBase : MonoBehaviour, IThrowingPlatform
         ObjectPool = new ObjectPool<ThrowableItemBase>(itemInstance, container, beginCountItems);
         cameraMain = Camera.main;
 
-        InputTouch = new InputTouchDefault(cameraMain, itemTarget);
+        //InputTouch = new InputTouchDefault(cameraMain, itemTarget);
+        InputTouch = new InputTouchWithPlane(cameraMain, itemTarget);
         CurrentItemSelector = new CurrentItemSelected(cameraMain);
         InputThrowigPlatform = new InputThrowigPlatformDefault(this);
         itemHandler = new ItemHandlerInPlatform(this);

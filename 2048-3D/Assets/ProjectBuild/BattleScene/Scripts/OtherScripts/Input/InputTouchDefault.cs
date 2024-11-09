@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
+
+[Obsolete("клас работає не правильно, юзай InputTouchWithPlane")]
 public class InputTouchDefault : IInput
 {
     private readonly Camera cameraMain;
@@ -17,7 +20,6 @@ public class InputTouchDefault : IInput
 
         Vector3 position = Input.mousePosition;
 
-        //position.z -= cameraMain.gameObject.transform.position.z;
         position.z -= cameraMain.gameObject.transform.position.z + target.position.z;
 
 
