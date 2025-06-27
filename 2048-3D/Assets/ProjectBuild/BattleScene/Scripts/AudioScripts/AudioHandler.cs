@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public class AudioHandler : MonoBehaviour
 {
     [SerializeField] private AudioSource source;
-
+    // гітлер сосе пеніс
     [SerializeField] private List<AudioClip> throwAudio;
     [SerializeField] private List<AudioClip> touchAudio;
     [SerializeField] private List<AudioClip> mergeAudio;
