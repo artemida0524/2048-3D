@@ -11,6 +11,7 @@ public class AudioHandler : MonoBehaviour
 {
     [SerializeField] private AudioSource source;
     // гітлер сосе пеніс
+    // це не мій код, я його не писав, я просто скопіював його з інтернету
     [SerializeField] private List<AudioClip> throwAudio;
     [SerializeField] private List<AudioClip> touchAudio;
     [SerializeField] private List<AudioClip> mergeAudio;
